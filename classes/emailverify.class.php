@@ -16,6 +16,7 @@ class EmailVerify {
 		load_plugin_textdomain( 'email-verify' );
 
 		add_filter( 'registration_errors', array( &$this, 'registration_errors' ), 10, 3 );
+		add_filter( 'user_profile_update_errors', array( &$this, 'user_profile_update_errors' ), 10, 3 );
 		add_action( 'admin_menu', array( &$this, 'menu' ) );
 		add_action( 'admin_init', array( &$this, 'register_settings' ) );
 
@@ -56,8 +57,8 @@ class EmailVerify {
 
 	public function register_settings() {
 
-		register_setting( 'email-verify', 'email_verify_check_mx' );
-		register_setting( 'email-verify', 'email_verify_check_smtp' );
+		register_setting( 'email-verify', 'email_verify_check_mx', array( &$this, 'validate_mx' ) );
+		register_setting( 'email-verify', 'email_verify_check_smtp', array( &$this, 'validate_smtp' ) );
 		register_setting( 'email-verify', 'email_verify_check_error' );
 		register_setting( 'email-verify', 'email_verify_dep' );
 		register_setting( 'email-verify', 'email_verify_dep_error' );
@@ -71,15 +72,38 @@ class EmailVerify {
 	}
 
 
-	public function registration_errors( $errors, $sanitized_user_login, $user_email ) {
+	public function user_profile_update_errors( $errors, $update, $user ) {
+
+		if ( ! $user ) {
+			return $errors;
+		}
+
+		$user_email = $user->user_email;
 
 		if ( is_wp_error( $result = $this->verify( $user_email ) ) ) {
-			$errors->add( $result->get_error_code(), $result->get_error_message() );
+			if ( $errors instanceof WP_Error ) {
+				$errors->add( $result->get_error_code(), $result->get_error_message() );
+			} elseif ( is_string( $errors ) ) {
+				$errors .= '<br />' . $result->get_error_message();
+			}
 		}
 
 		return $errors;
 	}
 
+
+	public function registration_errors( $errors, $sanitized_user_login, $user_email ) {
+
+		if ( is_wp_error( $result = $this->verify( $user_email ) ) ) {
+			if ( $errors instanceof WP_Error ) {
+				$errors->add( $result->get_error_code(), $result->get_error_message() );
+			} elseif ( is_string( $errors ) ) {
+				$errors .= '<br />' . $result->get_error_message();
+			}
+		}
+
+		return $errors;
+	}
 
 	public function verify( $email ) {
 
@@ -126,13 +150,7 @@ class EmailVerify {
 		// check via SMTP server
 		if ( get_option( 'email_verify_check_smtp' ) ) {
 
-			require_once $this->plugin_path . '/classes/smtp-validate-email.php';
-
-			$from = get_option( 'admin_email' );
-
-			$validator = new SMTP_Validate_Email( $email, $from );
-			$smtp_results = $validator->validate();
-			$valid = (isset( $smtp_results[ $email ] ) && 1 == $smtp_results[ $email ]) || ! ! array_sum( $smtp_results['domains'][ $domain ]['mxs'] );
+			$valid = $this->smtp_check( $email );
 			if ( ! $valid ) {
 				return new WP_Error( 'email_verify_smtp_error', get_option( 'email_verify_check_error' ), 'email' );
 			}
@@ -161,10 +179,46 @@ class EmailVerify {
 	}
 
 
+	public function smtp_check( $email, $from = null ) {
+		if ( is_null( $from ) ) {
+			$from = get_option( 'admin_email' );
+		}
+		list( $user, $domain ) = explode( '@', $email );
+
+		require_once $this->plugin_path . '/classes/smtp-validate-email.php';
+
+		$validator = new SMTP_Validate_Email( $email, $from );
+		$smtp_results = $validator->validate();
+		$valid = (isset( $smtp_results[ $email ] ) && 1 == $smtp_results[ $email ]) || ! ! array_sum( $smtp_results['domains'][ $domain ]['mxs'] );
+
+		return $valid;
+
+	}
+
+
 	public function settings() {
 
 		include $this->plugin_path . '/views/settings.php';
 
+	}
+
+
+	public function validate_mx( $input ) {
+		if ( $input ) {
+			if ( ! ($input = checkdnsrr( 'google.com', 'MX' )) ) {
+				add_settings_error( 'email_verify_check_mx', 'no_mx', __( 'Not able to use MX record check on your server!', 'email-verify' ) );
+			}
+		}
+		return $input;
+	}
+
+	public function validate_smtp( $input ) {
+		if ( $input ) {
+			if ( ! ($input = $this->smtp_check( get_option( 'admin_email' ) )) ) {
+				add_settings_error( 'email_verify_check_mx', 'no_mx', __( 'Not able to use SMTP check record check on your server!', 'email-verify' ) );
+			}
+		}
+		return $input;
 	}
 
 

@@ -8,7 +8,7 @@ class EmailVerify {
 	public function __construct() {
 
 		$this->plugin_path = plugin_dir_path( EMAILVERIFY_FILE );
-		$this->plugin_url = plugin_dir_url( EMAILVERIFY_FILE );
+		$this->plugin_url  = plugin_dir_url( EMAILVERIFY_FILE );
 
 		register_activation_hook( EMAILVERIFY_FILE, array( &$this, 'activate' ) );
 		register_deactivation_hook( EMAILVERIFY_FILE, array( &$this, 'deactivate' ) );
@@ -26,16 +26,16 @@ class EmailVerify {
 	public function activate( $network_wide ) {
 
 		$defaults = array(
-			'email_verify_check_mx' => true,
-			'email_verify_check_smtp' => false,
-			'email_verify_check_error' => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
-			'email_verify_dep' => true,
-			'email_verify_dep_error' => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
-			'email_verify_domains' => '',
-			'email_verify_domains_error' => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
-			'email_verify_emails' => '',
-			'email_verify_emails_error' => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
-			'email_verify_whitelist' => '',
+			'email_verify_check_mx'         => true,
+			'email_verify_check_smtp'       => false,
+			'email_verify_check_error'      => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
+			'email_verify_dep'              => true,
+			'email_verify_dep_error'        => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
+			'email_verify_domains'          => '',
+			'email_verify_domains_error'    => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
+			'email_verify_emails'           => '',
+			'email_verify_emails_error'     => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
+			'email_verify_whitelist'        => '',
 			'email_verify_whitelist_emails' => '',
 		);
 
@@ -168,11 +168,11 @@ class EmailVerify {
 		}
 
 		$file = $this->plugin_path . '/dep.txt';
-		if ( ! file_exists( $file )  ) {
+		if ( ! file_exists( $file ) ) {
 			update_option( 'email_verify_dep', false );
 			return array();
 		}
-		$raw = @file_get_contents( $file );
+		$raw     = @file_get_contents( $file );
 		$domains = explode( "\n", $raw );
 		return $domains;
 
@@ -187,9 +187,9 @@ class EmailVerify {
 
 		require_once $this->plugin_path . '/classes/smtp-validate-email.php';
 
-		$validator = new SMTP_Validate_Email( $email, $from );
+		$validator    = new SMTP_Validate_Email( $email, $from );
 		$smtp_results = $validator->validate();
-		$valid = (isset( $smtp_results[ $email ] ) && 1 == $smtp_results[ $email ]) || ! ! array_sum( $smtp_results['domains'][ $domain ]['mxs'] );
+		$valid        = ( isset( $smtp_results[ $email ] ) && 1 == $smtp_results[ $email ] ) || ! ! array_sum( $smtp_results['domains'][ $domain ]['mxs'] );
 
 		return $valid;
 
@@ -205,7 +205,7 @@ class EmailVerify {
 
 	public function validate_mx( $input ) {
 		if ( $input ) {
-			if ( ! ($input = checkdnsrr( 'google.com', 'MX' )) ) {
+			if ( ! ( $input = checkdnsrr( 'google.com', 'MX' ) ) ) {
 				add_settings_error( 'email_verify_check_mx', 'no_mx', __( 'Not able to use MX record check on your server!', 'email-verify' ) );
 			}
 		}
@@ -214,7 +214,7 @@ class EmailVerify {
 
 	public function validate_smtp( $input ) {
 		if ( $input ) {
-			if ( ! ($input = $this->smtp_check( get_option( 'admin_email' ) )) ) {
+			if ( ! ( $input = $this->smtp_check( get_option( 'admin_email' ) ) ) ) {
 				add_settings_error( 'email_verify_check_mx', 'no_mx', __( 'Not able to use SMTP check record check on your server!', 'email-verify' ) );
 			}
 		}

@@ -2,7 +2,7 @@
 Contributors: everpress, xaverb
 Tags: email, verification
 Requires at least: 4.3
-Tested up to: 5.2
+Tested up to: 5.3
 Stable tag: 1.1
 License: GPLv2 or later
 Author: EverPress
@@ -31,5 +31,5 @@ Verifies your Users email addresses and blocks them from register to your site.
 = 1.0 =
 * initial release
 
-== Additional Info One ==
+== Additional Info ==
 

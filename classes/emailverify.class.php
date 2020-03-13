@@ -40,7 +40,7 @@ class EmailVerify {
 		);
 
 		foreach ( $defaults as $key => $value ) {
-			if ( false == get_option( $key ) ) {
+			if ( false === get_option( $key ) ) {
 				add_option( $key, $value );
 			}
 		}

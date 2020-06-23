@@ -3,10 +3,10 @@ Contributors: everpress
 Tags: email, verification
 Requires at least: 4.3
 Tested up to: 5.4
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: GPLv2 or later
 Author: EverPress
-Author URI: https://about.me/xaver
+Author URI: https://everpress.co
 
 == Description ==
 
@@ -23,6 +23,9 @@ Verifies your Users email addresses and blocks them from register to your site.
 1. Option Interface.
 
 == Changelog ==
+
+= 1.1.5 =
+* changed author URI
 
 = 1.1.4 =
 * remove use of echo

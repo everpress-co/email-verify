@@ -35,8 +35,8 @@ class EmailVerify {
 			'email_verify_domains_error'    => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
 			'email_verify_emails'           => '',
 			'email_verify_emails_error'     => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
-			'email_verify_whitelist'        => '',
-			'email_verify_whitelist_emails' => '',
+			'email_verify_safelist'        => '',
+			'email_verify_safelist_emails' => '',
 		);
 
 		foreach ( $defaults as $key => $value ) {
@@ -66,8 +66,8 @@ class EmailVerify {
 		register_setting( 'email-verify', 'email_verify_emails_error' );
 		register_setting( 'email-verify', 'email_verify_domains', array( &$this, 'validate_textarea' ) );
 		register_setting( 'email-verify', 'email_verify_domains_error' );
-		register_setting( 'email-verify', 'email_verify_whitelist', array( &$this, 'validate_textarea' ) );
-		register_setting( 'email-verify', 'email_verify_whitelist_emails', array( &$this, 'validate_textarea' ) );
+		register_setting( 'email-verify', 'email_verify_safelist', array( &$this, 'validate_textarea' ) );
+		register_setting( 'email-verify', 'email_verify_safelist_emails', array( &$this, 'validate_textarea' ) );
 
 	}
 
@@ -109,9 +109,9 @@ class EmailVerify {
 
 		list( $user, $domain ) = explode( '@', $email );
 
-		// check for white listed email addresses
-		$whitelisted_emails = explode( "\n", get_option( 'email_verify_whitelist_emails', '' ) );
-		if ( in_array( $email, $whitelisted_emails ) ) {
+		// check for safe listed email addresses
+		$safelisted_emails = explode( "\n", get_option( 'email_verify_safelist_emails', '' ) );
+		if ( in_array( $email, $safelisted_emails ) ) {
 			return true;
 		}
 
@@ -121,9 +121,9 @@ class EmailVerify {
 			return new WP_Error( 'email_verify_emails_error', get_option( 'email_verify_emails_error' ), 'email' );
 		}
 
-		// check for white listed
-		$whitelisted_domains = explode( "\n", get_option( 'email_verify_whitelist', '' ) );
-		if ( in_array( $domain, $whitelisted_domains ) ) {
+		// check for safe listed
+		$safelisted_domains = explode( "\n", get_option( 'email_verify_safelist', '' ) );
+		if ( in_array( $domain, $safelisted_domains ) ) {
 			return true;
 		}
 

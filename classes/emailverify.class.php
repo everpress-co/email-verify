@@ -26,15 +26,15 @@ class EmailVerify {
 	public function activate( $network_wide ) {
 
 		$defaults = array(
-			'email_verify_check_mx'         => true,
-			'email_verify_check_smtp'       => false,
-			'email_verify_check_error'      => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
-			'email_verify_dep'              => true,
-			'email_verify_dep_error'        => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
-			'email_verify_domains'          => '',
-			'email_verify_domains_error'    => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
-			'email_verify_emails'           => '',
-			'email_verify_emails_error'     => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
+			'email_verify_check_mx'        => true,
+			'email_verify_check_smtp'      => false,
+			'email_verify_check_error'     => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
+			'email_verify_dep'             => true,
+			'email_verify_dep_error'       => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
+			'email_verify_domains'         => '',
+			'email_verify_domains_error'   => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
+			'email_verify_emails'          => '',
+			'email_verify_emails_error'    => __( 'Sorry, your email address is not accepted!', 'email-verify' ),
 			'email_verify_safelist'        => '',
 			'email_verify_safelist_emails' => '',
 		);

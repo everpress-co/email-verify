@@ -1,9 +1,9 @@
 === Email Verify ===
-Contributors: everpress, xaverb
+Contributors: everpress
 Tags: email, verification
 Requires at least: 4.3
 Tested up to: 5.4
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 Author: EverPress
 Author URI: https://about.me/xaver
@@ -23,6 +23,9 @@ Verifies your Users email addresses and blocks them from register to your site.
 1. Option Interface.
 
 == Changelog ==
+
+= 1.1.2 =
+* changed wording in settings
 
 = 1.1.1 =
 * fixed small issue in if statement

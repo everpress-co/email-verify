@@ -24,10 +24,10 @@
 		</td>
 	</tr>
 	<tr valign="top">
-		<th scope="row"><?php esc_html_e( 'Blacklisted Email Addresses', 'email-verify' ); ?></th>
+		<th scope="row"><?php esc_html_e( 'Blocked Email Addresses', 'email-verify' ); ?></th>
 		<td>
-		<p><?php esc_html_e( 'List of blacklisted email addresses. One email each line.', 'email-verify' ); ?><br>
-		<textarea name="email_verify_emails" placeholder="<?php echo "john@blacklisted.com\njane@blacklisted.co.uk\nhans@blacklisted.de"; ?>" class="code large-text" rows="10"><?php echo esc_attr( get_option( 'email_verify_emails' ) ); ?></textarea></p>
+		<p><?php esc_html_e( 'List of blocked email addresses. One email each line.', 'email-verify' ); ?><br>
+		<textarea name="email_verify_emails" placeholder="<?php echo "john@blocked.com\njane@blocked.co.uk\nhans@blocked.de"; ?>" class="code large-text" rows="10"><?php echo esc_attr( get_option( 'email_verify_emails' ) ); ?></textarea></p>
 		<p><strong><?php esc_html_e( 'Error Message', 'email-verify' ); ?>:</strong>
 		<input type="text" name="email_verify_emails_error" value="<?php echo esc_attr( get_option( 'email_verify_emails_error' ) ); ?>" class="large-text"></p>
 		</td>
@@ -35,8 +35,8 @@
 	<tr valign="top">
 		<th scope="row"><?php esc_html_e( 'Reject Domains', 'email-verify' ); ?></th>
 		<td>
-		<p><?php esc_html_e( 'List of blacklisted domains. One domain each line.', 'email-verify' ); ?><br>
-		<textarea name="email_verify_domains" placeholder="<?php echo "blacklisted.com\nblacklisted.co.uk\nblacklisted.de"; ?>" class="code large-text" rows="10"><?php echo esc_attr( get_option( 'email_verify_domains' ) ); ?></textarea></p>
+		<p><?php esc_html_e( 'List of blocked domains. One domain each line.', 'email-verify' ); ?><br>
+		<textarea name="email_verify_domains" placeholder="<?php echo "blocked.com\nblocked.co.uk\nblocked.de"; ?>" class="code large-text" rows="10"><?php echo esc_attr( get_option( 'email_verify_domains' ) ); ?></textarea></p>
 		<p><strong><?php esc_html_e( 'Error Message', 'email-verify' ); ?>:</strong>
 		<input type="text" name="email_verify_domains_error" value="<?php echo esc_attr( get_option( 'email_verify_domains_error' ) ); ?>" class="large-text"></p>
 		</td>
@@ -45,14 +45,14 @@
 		<th scope="row"><?php esc_html_e( 'White listed Email Addresses', 'email-verify' ); ?></th>
 		<td>
 		<p><?php esc_html_e( 'List domains which bypass the above rules. One domain each line.', 'email-verify' ); ?><br>
-		<textarea name="email_verify_whitelist_emails" placeholder="<?php echo "whitelisted.com\nwhitelisted.co.uk\nwhitelisted.de"; ?>" class="code large-text" rows="10"><?php echo esc_attr( get_option( 'email_verify_whitelist_emails' ) ); ?></textarea></p>
+		<textarea name="email_verify_safelist_emails" placeholder="<?php echo "safelisted.com\nsafelisted.co.uk\nsafelisted.de"; ?>" class="code large-text" rows="10"><?php echo esc_attr( get_option( 'email_verify_safelist_emails' ) ); ?></textarea></p>
 		</td>
 	</tr>
 	<tr valign="top">
 		<th scope="row"><?php esc_html_e( 'White listed Domains', 'email-verify' ); ?></th>
 		<td>
 		<p><?php esc_html_e( 'List email addresses which bypass the above rules. One email each line.', 'email-verify' ); ?><br>
-		<textarea name="email_verify_whitelist" placeholder="<?php echo "john@whitelisted.com\njane@whitelisted.co.uk\nhans@whitelisted.de"; ?>" class="code large-text" rows="10"><?php echo esc_attr( get_option( 'email_verify_whitelist' ) ); ?></textarea></p>
+		<textarea name="email_verify_safelist" placeholder="<?php echo "john@safelisted.com\njane@safelisted.co.uk\nhans@safelisted.de"; ?>" class="code large-text" rows="10"><?php echo esc_attr( get_option( 'email_verify_safelist' ) ); ?></textarea></p>
 		</td>
 	</tr>
 </table>

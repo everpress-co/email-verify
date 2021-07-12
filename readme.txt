@@ -2,7 +2,7 @@
 Contributors: everpress
 Tags: email, verification
 Requires at least: 4.3
-Tested up to: 5.5
+Tested up to: 5.8
 Stable tag: 1.1.5
 License: GPLv2 or later
 Author: EverPress

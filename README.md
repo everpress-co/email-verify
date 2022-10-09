@@ -1,6 +1,6 @@
 # Email Verify
 
-Contributors: everpress  
+Contributors: everpress, xaverb  
 Tags: email, verification  
 Requires at least: 4.3  
 Tested up to: 6.0  

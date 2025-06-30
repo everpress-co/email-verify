@@ -19,7 +19,6 @@ class EmailVerify {
 		add_filter( 'user_profile_update_errors', array( &$this, 'user_profile_update_errors' ), 10, 3 );
 		add_action( 'admin_menu', array( &$this, 'menu' ) );
 		add_action( 'admin_init', array( &$this, 'register_settings' ) );
-
 	}
 
 
@@ -44,7 +43,6 @@ class EmailVerify {
 				add_option( $key, $value );
 			}
 		}
-
 	}
 
 
@@ -68,7 +66,6 @@ class EmailVerify {
 		register_setting( 'email-verify', 'email_verify_domains_error' );
 		register_setting( 'email-verify', 'email_verify_safelist', array( &$this, 'validate_textarea' ) );
 		register_setting( 'email-verify', 'email_verify_safelist_emails', array( &$this, 'validate_textarea' ) );
-
 	}
 
 
@@ -157,7 +154,6 @@ class EmailVerify {
 		}
 
 		return true;
-
 	}
 
 
@@ -175,7 +171,6 @@ class EmailVerify {
 		$raw     = @file_get_contents( $file );
 		$domains = explode( "\n", $raw );
 		return $domains;
-
 	}
 
 
@@ -192,14 +187,12 @@ class EmailVerify {
 		$valid        = ( isset( $smtp_results[ $email ] ) && 1 == $smtp_results[ $email ] ) || ! ! array_sum( $smtp_results['domains'][ $domain ]['mxs'] );
 
 		return $valid;
-
 	}
 
 
 	public function settings() {
 
 		include $this->plugin_path . '/views/settings.php';
-
 	}
 
 
@@ -232,5 +225,4 @@ class EmailVerify {
 
 		return $input;
 	}
-
 }

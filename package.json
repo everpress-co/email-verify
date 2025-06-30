@@ -22,6 +22,7 @@
 		"dep.txt",
 		"*.php"
 	],
+	"dependencies": {},
 	"devDependencies": {
 		"@wordpress/env": "^10.26.0",
 		"@wordpress/scripts": "^30.19.0",

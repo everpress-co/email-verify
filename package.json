@@ -1,0 +1,31 @@
+{
+	"name": "email-verify",
+	"version": "1.1.6",
+	"author": "everpress",
+	"license": "GPL-2.0-or-later",
+	"scripts": {
+		"build": "wp-scripts build",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"start": "wp-scripts start"
+	},
+	"files": [
+		"build",
+		"src",
+		"vendor",
+		"includes",
+		"views",
+		"classes",
+		"dep.txt",
+		"*.php"
+	],
+	"devDependencies": {
+		"@wordpress/env": "^10.26.0",
+		"@wordpress/scripts": "^30.19.0",
+		"sounds-webpack-plugin": "^0.0.2",
+		"webpack-remove-empty-scripts": "^1.0.4"
+	}
+}

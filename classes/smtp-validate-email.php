@@ -358,7 +358,6 @@ class SMTP_Validate_Email {
 		}
 
 		return $this->get_results();
-
 	}
 
 	public function get_results( $include_domains_info = true ) {
@@ -822,7 +821,7 @@ class SMTP_Validate_Email {
 		}
 		$i = -1;
 		foreach ( $output as $line ) {
-			$i++;
+			++$i;
 			if ( preg_match( "/^$hostname\tMX preference = ([0-9]+), mail exchanger = (.+)$/i", $line, $parts ) ) {
 				$mxweights[ $i ] = trim( $parts[1] );
 				$mxhosts[ $i ]   = trim( $parts[2] );
